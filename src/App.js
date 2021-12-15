@@ -11,6 +11,23 @@ function App() {
     const allNotes = ['A', 'B', 'C', 'D', 'E', 'F'];
     const suffixes = ['', 'b', '#'];
 
+    const removeBadNote = noteStr => {
+      switch (noteStr) {
+        case 'B#':
+          return 'C';
+        case 'Cb':
+          return 'B';
+        case 'D#':
+          return 'Eb';
+        case 'E#':
+          return 'F';
+        case 'Fb':
+          return 'E';
+        default:
+          return noteStr;
+      }
+    };
+
     const sample = arr => arr[~~(Math.random() * arr.length)];
     const randNumInclusive = (low, high) =>
       low + ~~(Math.random() * (high - low + 1));
@@ -19,7 +36,7 @@ function App() {
       const notesSet = new Set();
       const n = randNumInclusive(2, 4);
       while (notesSet.size < n) {
-        notesSet.add(sample(allNotes) + sample(suffixes));
+        notesSet.add(removeBadNote(sample(allNotes) + sample(suffixes)));
       }
       return notesSet;
     };
